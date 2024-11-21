@@ -1,9 +1,9 @@
 ﻿  main.cpp
-C:\Users\tdoublet\source\repos\ProjetSFLM1\ProjetSFLM1\main.cpp(100,55): warning C4244: 'argument' : conversion de 'int' en 'float', perte possible de données
-C:\Users\tdoublet\source\repos\ProjetSFLM1\ProjetSFLM1\main.cpp(100,42): warning C4244: 'argument' : conversion de 'int' en 'float', perte possible de données
-C:\Users\tdoublet\source\repos\ProjetSFLM1\ProjetSFLM1\main.cpp(111,80): warning C4244: 'argument' : conversion de 'T' en 'const unsigned __int64', perte possible de données
+C:\Users\tdoublet\Documents\GitHub\2D-Platformer-SFML\ProjetSFLM1\ProjetSFLM1\main.cpp(60,51): warning C4244: 'argument' : conversion de 'int' en 'float', perte possible de données
+C:\Users\tdoublet\Documents\GitHub\2D-Platformer-SFML\ProjetSFLM1\ProjetSFLM1\main.cpp(60,38): warning C4244: 'argument' : conversion de 'int' en 'float', perte possible de données
+C:\Users\tdoublet\Documents\GitHub\2D-Platformer-SFML\ProjetSFLM1\ProjetSFLM1\main.cpp(111,80): warning C4244: 'argument' : conversion de 'T' en 'const unsigned __int64', perte possible de données
           with
           [
               T=float
           ]
-  ProjetSFLM1.vcxproj -> C:\Users\tdoublet\source\repos\ProjetSFLM1\x64\Debug\ProjetSFLM1.exe
+  ProjetSFLM1.vcxproj -> C:\Users\tdoublet\Documents\GitHub\2D-Platformer-SFML\ProjetSFLM1\x64\Debug\ProjetSFLM1.exe

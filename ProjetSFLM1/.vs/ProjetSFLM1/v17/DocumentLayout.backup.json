@@ -1,9 +1,9 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\tdoublet\\source\\repos\\ProjetSFLM1\\",
+  "WorkspaceRootPath": "C:\\Users\\tdoublet\\Documents\\GitHub\\2D-Platformer-SFML\\ProjetSFLM1\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{15D9EA46-EDF3-411F-A821-8A19F27B91F1}|ProjetSFLM1\\ProjetSFLM1.vcxproj|C:\\Users\\tdoublet\\source\\repos\\ProjetSFLM1\\ProjetSFLM1\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "AbsoluteMoniker": "D:0:0:{15D9EA46-EDF3-411F-A821-8A19F27B91F1}|ProjetSFLM1\\ProjetSFLM1.vcxproj|C:\\Users\\tdoublet\\Documents\\GitHub\\2D-Platformer-SFML\\ProjetSFLM1\\ProjetSFLM1\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{15D9EA46-EDF3-411F-A821-8A19F27B91F1}|ProjetSFLM1\\ProjetSFLM1.vcxproj|solutionrelative:ProjetSFLM1\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
@@ -28,11 +28,11 @@
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "main.cpp",
-              "DocumentMoniker": "C:\\Users\\tdoublet\\source\\repos\\ProjetSFLM1\\ProjetSFLM1\\main.cpp",
+              "DocumentMoniker": "C:\\Users\\tdoublet\\Documents\\GitHub\\2D-Platformer-SFML\\ProjetSFLM1\\ProjetSFLM1\\main.cpp",
               "RelativeDocumentMoniker": "ProjetSFLM1\\main.cpp",
-              "ToolTip": "C:\\Users\\tdoublet\\source\\repos\\ProjetSFLM1\\ProjetSFLM1\\main.cpp",
+              "ToolTip": "C:\\Users\\tdoublet\\Documents\\GitHub\\2D-Platformer-SFML\\ProjetSFLM1\\ProjetSFLM1\\main.cpp",
               "RelativeToolTip": "ProjetSFLM1\\main.cpp",
-              "ViewState": "AgIAADoAAAAAAAAAAAAkwEgAAAAsAAAAAAAAAA==",
+              "ViewState": "AgIAACUAAAAAAAAAAAAkwD4AAAAfAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2024-11-21T08:21:18.081Z",
               "EditorCaption": ""

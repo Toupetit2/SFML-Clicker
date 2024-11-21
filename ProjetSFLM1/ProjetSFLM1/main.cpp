@@ -41,9 +41,30 @@ sf::Vector2f characterPosition(2, 2);
 float characterSize = 0.8f;
 
 
-void drawTerrain(sf::RenderWindow winow)
+void drawTerrain(sf::RenderWindow window)
 {
-    
+    int nbline = 0;
+    for (vector<int> line : tilemap)
+    {
+        int nbtile = 0;
+        for (int tile : line) {
+            sf::RectangleShape shape(sf::Vector2f(100.0f, 100.0f));
+
+            if (tile == 0) {
+                shape.setFillColor(sf::Color::Black);
+            }
+            if (tile == 1) {
+                shape.setFillColor(sf::Color(94, 52, 34));
+            }
+
+            shape.setPosition(nbtile * 48, nbline * 48);
+            nbtile++;
+
+            window.draw(shape);
+
+        }
+        nbline++;
+    }
 }
 
 
@@ -83,28 +104,7 @@ int main() {
         window.clear();
 
         //fonction1
-        int nbline = 0;
-        for (vector<int> line : tilemap)
-        {
-            int nbtile = 0;
-            for (int tile : line) {
-                sf::RectangleShape shape(sf::Vector2f(100.0f, 100.0f));
-                
-                if (tile == 0) {
-                    shape.setFillColor(sf::Color::Black);
-                }
-                if (tile == 1) {
-                    shape.setFillColor(sf::Color(94, 52, 34));
-                }
-                
-                shape.setPosition(nbtile * 48, nbline * 48);
-                nbtile++;
-
-                window.draw(shape);
-    
-            }
-            nbline++;
-        }
+        drawTerrain(window);
         //fin de fonction1
 
         //gravité personnage
