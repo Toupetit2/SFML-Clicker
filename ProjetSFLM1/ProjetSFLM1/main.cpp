@@ -38,34 +38,16 @@ sf::Vector2f camPosition(0, 0);
 
 sf::Vector2f characterPosition(2, 2);
 
+sf::Vector2f characterVelocity(0, 0);
+
 float characterSize = 0.8f;
 
 
 void drawTerrain(sf::RenderWindow window)
 {
-    int nbline = 0;
-    for (vector<int> line : tilemap)
-    {
-        int nbtile = 0;
-        for (int tile : line) {
-            sf::RectangleShape shape(sf::Vector2f(100.0f, 100.0f));
-
-            if (tile == 0) {
-                shape.setFillColor(sf::Color::Black);
-            }
-            if (tile == 1) {
-                shape.setFillColor(sf::Color(94, 52, 34));
-            }
-
-            shape.setPosition(nbtile * 48, nbline * 48);
-            nbtile++;
-
-            window.draw(shape);
-
-        }
-        nbline++;
-    }
+    
 }
+
 
 
 int main() {
@@ -103,14 +85,51 @@ int main() {
 
         window.clear();
 
+
+
         //fonction1
-        drawTerrain(window);
+        int nbline = 0;
+        for (vector<int> line : tilemap)
+        {
+            int nbtile = 0;
+            for (int tile : line) {
+                sf::RectangleShape shape(sf::Vector2f(100.0f, 100.0f));
+
+                if (tile == 0) {
+                    shape.setFillColor(sf::Color::Black);
+                }
+                if (tile == 1) {
+                    shape.setFillColor(sf::Color(94, 52, 34));
+                }
+
+                shape.setPosition(nbtile * 48, nbline * 48);
+                nbtile++;
+
+                window.draw(shape);
+
+            }
+            nbline++;
+        }
         //fin de fonction1
 
         //gravité personnage
         if (tilemap[int(characterPosition.y + characterSize)][characterPosition.x] == 0)
         {
-            characterPosition.y += 0.05f;
+            characterVelocity.y = 0.15f;
+            characterPosition.y += characterVelocity.y;
+        }
+        else
+        {
+            characterVelocity.y = 0;
+        }
+
+        cout << characterPosition.x << ", " << characterPosition.y << "--" << int(characterPosition.x) << ", " << int(characterPosition.y + characterSize) << endl;
+
+        //check si dans le sol
+        while (tilemap[int(characterPosition.y + characterSize)][int(characterPosition.x)] == 1)
+        {
+            
+            characterPosition.y += -0.01f;
         }
 
         //affichage personnage
