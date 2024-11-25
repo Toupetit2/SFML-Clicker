@@ -4,55 +4,71 @@
 
 using namespace std;
 
-int x = 300;
-int y = 300;
+int totalScore = 0;
+int goldCount = 4;
+int clickPower = 1;
+
+int timer = time(0);
 
 
-
-vector<vector<int>> tilemap = {
-    // Lignes vides (le ciel)
-    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-
-    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0},
-
-    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0},
-
-    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-
-    {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-    {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
-};
-
-
-
-
-sf::Vector2f camPosition(0, 0);
-
-sf::Vector2f characterPosition(2, 2);
-
-sf::Vector2f characterVelocity(0, 0);
-
-float characterSize = 0.8f;
-
-
-void drawTerrain(sf::RenderWindow window)
+bool isMouseOnButton(sf::Vector2i mousePosition, sf::Vector2f buttonPosition, int buttonSizeX, int buttonSizeY)
 {
-    
+    if (mousePosition.x > buttonPosition.x && mousePosition.x < (buttonPosition.x + buttonSizeX))//Si dans le bouton en X
+    {
+        if (mousePosition.y > buttonPosition.y && mousePosition.y < (buttonPosition.y + buttonSizeY))
+        {
+            return true;
+        }
+    }
+
+    return false;
 }
 
-
+const int WINDOW_WIDTH = 768;
+const int WINDOW_HEIGHT = 720;
 
 int main() {
-    sf::RenderWindow window(sf::VideoMode(768, 720), "Gestion des Entrées");
+    srand(time(0));
+    sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Gestion des Entrées");
     window.setFramerateLimit(60);
+
+    // Font Setup
+    sf::Font font;
+    font.loadFromFile("../Assets/Roboto.ttf");
+
+    //Title Text
+    sf::Text titleText("SFML Clicker", font, 50);
+    titleText.setFillColor(sf::Color::White);
+    
+    //Main Click Button Visual
+    int ClickerButtonSizeX = WINDOW_WIDTH - 40;
+    int ClickerButtonSizeY = 120;
+    sf::Vector2f ClickerButtonPosition(20, WINDOW_HEIGHT - (20 + ClickerButtonSizeY));
+    sf::RectangleShape ClickerButton(sf::Vector2f(ClickerButtonSizeX, ClickerButtonSizeY));
+    ClickerButton.setFillColor(sf::Color::White);
+    ClickerButton.setPosition(ClickerButtonPosition.x, ClickerButtonPosition.y);
+
+    // Background Title and Score Bar
+    sf::Vector2f BackgroundHeaderPosition(20, 20);
+    sf::RectangleShape BackgroundHeader(sf::Vector2f(ClickerButtonSizeX, ClickerButtonSizeY));
+    BackgroundHeader.setFillColor(sf::Color::Color(26, 26, 26));
+    BackgroundHeader.setPosition(BackgroundHeaderPosition.x, BackgroundHeaderPosition.y);
+
+    titleText.setPosition(25, 20);
+
+
+    // Shop Buttons
+    int ShopButtonMargin = 10;
+    int ShopButtonSize = (WINDOW_WIDTH - 30) / 6 - ShopButtonMargin;
+    
+    std::vector<sf::RectangleShape> ShopButtons;
+        
+    for (int i = 0; i < 6; i++) {
+        sf::RectangleShape button(sf::Vector2f(ShopButtonSize, ShopButtonSize));
+        button.setFillColor(sf::Color::White);
+        button.setPosition(20 + i * ShopButtonSize + i * ShopButtonMargin, 153);
+        ShopButtons.push_back(button);
+    }
 
     
     while (window.isOpen()) {
@@ -62,82 +78,95 @@ int main() {
                 window.close();
 
             if (event.type == sf::Event::KeyPressed) {
-                if (event.key.code == sf::Keyboard::Left)
-                {
-                    std::cout << "GAUCHE" << std::endl;
-                    characterPosition.x -= 0.2f;
-                }
-                if (event.key.code == sf::Keyboard::Right) {
-                    std::cout << "DROITE" << std::endl;
-                    characterPosition.x += 0.2f;
-                }
-                if (event.key.code == sf::Keyboard::Up) {
-                    std::cout << "HAUT" << std::endl;
-                    characterPosition.y -= 1;
-                }
-                if (event.key.code == sf::Keyboard::Down) {
-                    std::cout << "BAS" << std::endl;
-                }
+
                 if (event.key.code == sf::Keyboard::Escape)
                     window.close(); // Fermer avec Échap
             }
+            if (event.type == sf:: Event::MouseButtonPressed)
+            {
+                if (event.mouseButton.button == sf::Mouse::Left)
+                {
+
+                    //Main Clicker Button Tech
+                    if (isMouseOnButton(sf::Mouse::getPosition(window), ClickerButtonPosition, ClickerButtonSizeX, ClickerButtonSizeY))
+                    {
+                        totalScore += clickPower;
+                        for (int i = 0; i < clickPower; i++)
+                        {
+                            if (rand() % 10 == 0) // une chance sur 10 d'avoir un gold
+                            {
+                                goldCount += 1;
+                            }
+                        }
+                        
+                        cout << "ClickerButtonCLicked  ";
+                    }
+
+                    // Shop Button 1 Tech
+                    if (isMouseOnButton(sf::Mouse::getPosition(window), ShopButtons[0].getPosition(), ShopButtonSize, ShopButtonSize))
+                    {
+                        if (goldCount > 4)
+                        {
+                            goldCount += -5;
+                            clickPower += 1;
+
+                        }
+
+                        cout << "ShopButton1Clicked";
+                    }
+                    // Shop Button 2 Tech
+                    if (isMouseOnButton(sf::Mouse::getPosition(window), ShopButtons[1].getPosition(), ShopButtonSize, ShopButtonSize))
+                    {
+                        if (goldCount > 49)
+                        {
+                            goldCount += -50;
+                            clickPower += 10;
+
+                        }
+
+                        cout << "ShopButton1Clicked";
+                    }
+
+                }
+            }
         }
+
+
+        // Timer and Autoclick farm
+
+        if (timer != time(0))
+        {
+            timer = time(0);
+            totalScore += 1;
+            // autoclickfarm
+        }
+
+
+        //Score text
+        int scoreTextMargin = 30;
+        sf::Text scoreText(to_string(totalScore), font, 60);
+        scoreText.setFillColor(sf::Color::White);
+
+        scoreText.setPosition(WINDOW_WIDTH - scoreText.getLocalBounds().width - scoreTextMargin , 10);
+
+        sf::Text goldText(to_string(goldCount), font, 40);
+        goldText.setFillColor(sf::Color::White);
+
+        goldText.setPosition(WINDOW_WIDTH - goldText.getLocalBounds().width - scoreTextMargin, 20 + 60);
+
+
+
 
         window.clear();
-
-
-
-        //fonction1
-        int nbline = 0;
-        for (vector<int> line : tilemap)
+        window.draw(BackgroundHeader);
+        window.draw(ClickerButton);
+        for (auto button : ShopButtons)
         {
-            int nbtile = 0;
-            for (int tile : line) {
-                sf::RectangleShape shape(sf::Vector2f(100.0f, 100.0f));
-
-                if (tile == 0) {
-                    shape.setFillColor(sf::Color::Black);
-                }
-                if (tile == 1) {
-                    shape.setFillColor(sf::Color(94, 52, 34));
-                }
-
-                shape.setPosition(nbtile * 48, nbline * 48);
-                nbtile++;
-
-                window.draw(shape);
-
-            }
-            nbline++;
+            window.draw(button);
         }
-        //fin de fonction1
-
-        //gravité personnage
-        if (tilemap[int(characterPosition.y + characterSize)][characterPosition.x] == 0)
-        {
-            characterVelocity.y = 0.15f;
-            characterPosition.y += characterVelocity.y;
-        }
-        else
-        {
-            characterVelocity.y = 0;
-        }
-
-        cout << characterPosition.x << ", " << characterPosition.y << "--" << int(characterPosition.x) << ", " << int(characterPosition.y + characterSize) << endl;
-
-        //check si dans le sol
-        while (tilemap[int(characterPosition.y + characterSize)][int(characterPosition.x)] == 1)
-        {
-            
-            characterPosition.y += -0.01f;
-        }
-
-        //affichage personnage
-        sf::RectangleShape shape(sf::Vector2f(characterSize * 48, characterSize * 48));
-        shape.setFillColor(sf::Color::Blue);
-        shape.setPosition(characterPosition.x*48, characterPosition.y * 48);
-        window.draw(shape);
-
+        window.draw(titleText);
+        window.draw(scoreText);
+        window.draw(goldText);
         window.display();
     }
 
