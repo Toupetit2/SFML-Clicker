@@ -1,15 +1,20 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include <vector>
+#include <windows.h>
+#include <chrono>
 
 using namespace std;
+using namespace std::chrono;
 
 int totalScore = 0;
-int goldCount = 4;
+int goldCount = 1000000;
 int clickPower = 1;
+int autoclickers = 0;
 
 int timer = time(0);
 
+vector<milliseconds> buyTimings = {};
 
 bool isMouseOnButton(sf::Vector2i mousePosition, sf::Vector2f buttonPosition, int buttonSizeX, int buttonSizeY)
 {
@@ -28,6 +33,20 @@ const int WINDOW_WIDTH = 768;
 const int WINDOW_HEIGHT = 720;
 
 int main() {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     srand(time(0));
     sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Gestion des Entrées");
     window.setFramerateLimit(60);
@@ -35,6 +54,45 @@ int main() {
     // Font Setup
     sf::Font font;
     font.loadFromFile("../Assets/Roboto.ttf");
+
+    //Images Setup
+    sf::Texture button1;
+    sf::Texture button2;
+    sf::Texture button3;
+    sf::Texture button4;
+    sf::Texture button5;
+    sf::Texture button6;
+
+    if (!button1.loadFromFile("../Assets/button1.png"))
+    {
+        cout << "impossible de charger l'image 1";
+    }
+    if (!button2.loadFromFile("../Assets/button2.png"))
+    {
+        cout << "impossible de charger l'image 2";
+    }
+    if (!button3.loadFromFile("../Assets/button3.png"))
+    {
+        cout << "impossible de charger l'image 3";
+    }
+    if (!button4.loadFromFile("../Assets/button4.png"))
+    {
+        cout << "impossible de charger l'image 4";
+    }
+    if (!button5.loadFromFile("../Assets/button5.png"))
+    {
+        cout << "impossible de charger l'image 5";
+    }
+    if (!button6.loadFromFile("../Assets/button6.png"))
+    {
+        cout << "impossible de charger l'image 6";
+    }
+
+    vector<sf::Texture> buttonTextureList = { button1, button2, button3, button4, button5, button6 };
+
+    sf::Sprite button1Sprite;
+    button1Sprite.setTexture(button1);
+    
 
     //Title Text
     sf::Text titleText("SFML Clicker", font, 50);
@@ -64,10 +122,13 @@ int main() {
     std::vector<sf::RectangleShape> ShopButtons;
         
     for (int i = 0; i < 6; i++) {
-        sf::RectangleShape button(sf::Vector2f(ShopButtonSize, ShopButtonSize));
-        button.setFillColor(sf::Color::White);
-        button.setPosition(20 + i * ShopButtonSize + i * ShopButtonMargin, 153);
-        ShopButtons.push_back(button);
+        sf::RectangleShape buttonSprite(sf::Vector2f(ShopButtonSize, ShopButtonSize));
+        
+        buttonSprite.setTexture(&buttonTextureList[i]);
+        buttonSprite.setPosition(20 + i * ShopButtonSize + i * ShopButtonMargin, 153);
+        window.draw(buttonSprite);
+        ShopButtons.push_back(buttonSprite);
+
     }
 
     
@@ -126,6 +187,40 @@ int main() {
 
                         cout << "ShopButton1Clicked";
                     }
+                    // Shop Button 3 Tech
+                    if (isMouseOnButton(sf::Mouse::getPosition(window), ShopButtons[2].getPosition(), ShopButtonSize, ShopButtonSize))
+                    {
+                        if (goldCount > 14)
+                        {
+                            goldCount += -15;
+                            autoclickers += 1;
+
+                            milliseconds ms = duration_cast<milliseconds>(system_clock::now().time_since_epoch());
+
+                            buyTimings.push_back(ms);
+                        }
+
+                        cout << "ShopButton1Clicked";
+                    }
+                    // Shop Button 4 Tech
+                    if (isMouseOnButton(sf::Mouse::getPosition(window), ShopButtons[3].getPosition(), ShopButtonSize, ShopButtonSize))
+                    {
+                        if (goldCount > 149)
+                        {
+                            goldCount += -150;
+                            autoclickers += 10;
+                            for (int i = 0; i < 10; i++)
+                            {
+                                milliseconds ms = duration_cast<milliseconds>(system_clock::now().time_since_epoch());
+                                buyTimings.push_back(ms + milliseconds(1000));
+                                
+                                
+                            }
+                            
+                        }
+
+                        cout << "ShopButton1Clicked";
+                    }
 
                 }
             }
@@ -137,8 +232,19 @@ int main() {
         if (timer != time(0))
         {
             timer = time(0);
-            totalScore += 1;
-            // autoclickfarm
+            for (milliseconds autoclicker : buyTimings)
+            {
+                cout << autoclicker.count() << ", " << autoclicker.count() - time(0) << endl;
+
+                if ((autoclicker.count()) == time(0) % 5)
+                {
+                    totalScore += 1;
+                    if (rand() % 10 == 0) // une chance sur 10 d'avoir un gold
+                    {
+                        goldCount += 1;
+                    }
+                }
+            }
         }
 
 
@@ -164,9 +270,11 @@ int main() {
         {
             window.draw(button);
         }
+
         window.draw(titleText);
         window.draw(scoreText);
         window.draw(goldText);
+
         window.display();
     }
 

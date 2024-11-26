@@ -1,45 +1,45 @@
 ﻿  main.cpp
-C:\Users\tdoublet\Documents\GitHub\2D-Platformer-SFML\ProjetSFLM1\ProjetSFLM1\main.cpp(11,11): warning C4244: 'initialisation' : conversion de 'time_t' en 'int', perte possible de données
-C:\Users\tdoublet\Documents\GitHub\2D-Platformer-SFML\ProjetSFLM1\ProjetSFLM1\main.cpp(31,15): warning C4244: 'argument' : conversion de 'time_t' en 'unsigned int', perte possible de données
-C:\Users\tdoublet\Documents\GitHub\2D-Platformer-SFML\ProjetSFLM1\ProjetSFLM1\main.cpp(46,58): warning C4244: 'argument' : conversion de 'int' en 'T', perte possible de données
+C:\Users\tdoublet\Documents\GitHub\2D-Platformer-SFML\ProjetSFLM1\ProjetSFLM1\main.cpp(15,11): warning C4244: 'initialisation' : conversion de 'time_t' en 'int', perte possible de données
+C:\Users\tdoublet\Documents\GitHub\2D-Platformer-SFML\ProjetSFLM1\ProjetSFLM1\main.cpp(50,15): warning C4244: 'argument' : conversion de 'time_t' en 'unsigned int', perte possible de données
+C:\Users\tdoublet\Documents\GitHub\2D-Platformer-SFML\ProjetSFLM1\ProjetSFLM1\main.cpp(104,58): warning C4244: 'argument' : conversion de 'int' en 'T', perte possible de données
           with
           [
               T=float
           ]
-C:\Users\tdoublet\Documents\GitHub\2D-Platformer-SFML\ProjetSFLM1\ProjetSFLM1\main.cpp(47,71): warning C4244: 'argument' : conversion de 'int' en 'T', perte possible de données
+C:\Users\tdoublet\Documents\GitHub\2D-Platformer-SFML\ProjetSFLM1\ProjetSFLM1\main.cpp(105,71): warning C4244: 'argument' : conversion de 'int' en 'T', perte possible de données
           with
           [
               T=float
           ]
-C:\Users\tdoublet\Documents\GitHub\2D-Platformer-SFML\ProjetSFLM1\ProjetSFLM1\main.cpp(47,51): warning C4244: 'argument' : conversion de 'int' en 'T', perte possible de données
+C:\Users\tdoublet\Documents\GitHub\2D-Platformer-SFML\ProjetSFLM1\ProjetSFLM1\main.cpp(105,51): warning C4244: 'argument' : conversion de 'int' en 'T', perte possible de données
           with
           [
               T=float
           ]
-C:\Users\tdoublet\Documents\GitHub\2D-Platformer-SFML\ProjetSFLM1\ProjetSFLM1\main.cpp(53,74): warning C4244: 'argument' : conversion de 'int' en 'T', perte possible de données
+C:\Users\tdoublet\Documents\GitHub\2D-Platformer-SFML\ProjetSFLM1\ProjetSFLM1\main.cpp(111,74): warning C4244: 'argument' : conversion de 'int' en 'T', perte possible de données
           with
           [
               T=float
           ]
-C:\Users\tdoublet\Documents\GitHub\2D-Platformer-SFML\ProjetSFLM1\ProjetSFLM1\main.cpp(53,54): warning C4244: 'argument' : conversion de 'int' en 'T', perte possible de données
+C:\Users\tdoublet\Documents\GitHub\2D-Platformer-SFML\ProjetSFLM1\ProjetSFLM1\main.cpp(111,54): warning C4244: 'argument' : conversion de 'int' en 'T', perte possible de données
           with
           [
               T=float
           ]
-C:\Users\tdoublet\Documents\GitHub\2D-Platformer-SFML\ProjetSFLM1\ProjetSFLM1\main.cpp(67,64): warning C4244: 'argument' : conversion de 'int' en 'T', perte possible de données
+C:\Users\tdoublet\Documents\GitHub\2D-Platformer-SFML\ProjetSFLM1\ProjetSFLM1\main.cpp(125,70): warning C4244: 'argument' : conversion de 'int' en 'T', perte possible de données
           with
           [
               T=float
           ]
-C:\Users\tdoublet\Documents\GitHub\2D-Platformer-SFML\ProjetSFLM1\ProjetSFLM1\main.cpp(67,48): warning C4244: 'argument' : conversion de 'int' en 'T', perte possible de données
+C:\Users\tdoublet\Documents\GitHub\2D-Platformer-SFML\ProjetSFLM1\ProjetSFLM1\main.cpp(125,54): warning C4244: 'argument' : conversion de 'int' en 'T', perte possible de données
           with
           [
               T=float
           ]
-C:\Users\tdoublet\Documents\GitHub\2D-Platformer-SFML\ProjetSFLM1\ProjetSFLM1\main.cpp(69,52): warning C4244: 'argument' : conversion de 'int' en 'float', perte possible de données
-C:\Users\tdoublet\Documents\GitHub\2D-Platformer-SFML\ProjetSFLM1\ProjetSFLM1\main.cpp(139,25): warning C4244: '=' : conversion de 'time_t' en 'int', perte possible de données
+C:\Users\tdoublet\Documents\GitHub\2D-Platformer-SFML\ProjetSFLM1\ProjetSFLM1\main.cpp(128,58): warning C4244: 'argument' : conversion de 'int' en 'float', perte possible de données
+C:\Users\tdoublet\Documents\GitHub\2D-Platformer-SFML\ProjetSFLM1\ProjetSFLM1\main.cpp(234,25): warning C4244: '=' : conversion de 'time_t' en 'int', perte possible de données
   Génération de code en cours
-  3 of 142 functions ( 2.1%) were compiled, the rest were copied from previous compilation.
+  5 of 250 functions ( 2.0%) were compiled, the rest were copied from previous compilation.
     1 functions were new in current compilation
     3 functions had inline decision re-evaluated but remain unchanged
   Fin de la génération du code
