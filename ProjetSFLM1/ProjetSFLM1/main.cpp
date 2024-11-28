@@ -279,7 +279,7 @@ int main() {
                             {
                                 if (rand() % goldDropRate == 0) // une chance sur 10 d'avoir un gold
                                 {
-                                    goldCount += 1;
+                                    golds += 1;
                                 }
                             }
                             cout << "ClickerButtonCLicked  ";
@@ -288,9 +288,9 @@ int main() {
                         // Shop Button 1 Tech
                         if (isMouseOnButton(sf::Mouse::getPosition(window), ShopButtons[0].getPosition(), ShopButtonSize, ShopButtonSize))
                         {
-                            if (goldCount > 4)
+                            if (golds > 4)
                             {
-                                goldCount += -5;
+                                golds += -5;
                                 clickPower += 1;
 
                             }
@@ -300,9 +300,9 @@ int main() {
                         // Shop Button 2 Tech
                         if (isMouseOnButton(sf::Mouse::getPosition(window), ShopButtons[1].getPosition(), ShopButtonSize, ShopButtonSize))
                         {
-                            if (goldCount > 49)
+                            if (golds > 49)
                             {
-                                goldCount += -50;
+                                golds += -50;
                                 clickPower += 10;
 
                             }
@@ -342,9 +342,9 @@ int main() {
                         {
                             if (goldDropRate != 1)
                             {
-                                if (goldCount > 29)
+                                if (golds > 29)
                                 {
-                                    goldCount += -30;
+                                    golds += -30;
                                     goldDropRate += -1;
                                 }
                             }
