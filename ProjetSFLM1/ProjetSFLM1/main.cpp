@@ -12,7 +12,7 @@ int totalScore = 0;
 int points = 0;
 
 int totalGold = 0;
-int golds = 0;
+int golds = 7050;
 
 
 int clickPower = 1;
@@ -224,6 +224,7 @@ int main() {
 
     
     while (window.isOpen()) {
+        tickTimer += 1;
         sf::Event event;
         while (window.pollEvent(event)) {
             if (event.type == sf::Event::Closed)
@@ -274,7 +275,7 @@ int main() {
                         //Main Clicker Button Tech
                         if (isMouseOnButton(sf::Mouse::getPosition(window), ClickerButtonPosition, ClickerButtonSizeX, ClickerButtonSizeY))
                         {
-                            totalScore += clickPower;
+                            points += clickPower;
                             for (int i = 0; i < clickPower; i++)
                             {
                                 if (rand() % goldDropRate == 0) // une chance sur 10 d'avoir un gold
@@ -303,6 +304,7 @@ int main() {
                             if (golds > 49)
                             {
                                 golds += -50;
+                                totalGold += -50;
                                 clickPower += 10;
 
                             }
@@ -367,17 +369,29 @@ int main() {
 
         // Timer and Autoclick farm
 
-
+        cout << totalScore << ", " << points << endl;
         // Points :
         if (totalScore != points)
         {
             totalScore += 1;
         }
+        if (totalScore < points-600)
+        {
+            totalScore += 10;
+        }
         
         //Golds : 
-        if (totalGold != golds)
+        if (totalGold < golds)
         {
             totalGold += 1;
+        }
+        if (totalGold < golds-600)
+        {
+            totalGold += 10;
+        }
+        if (totalGold > golds)
+        {
+            totalGold -= 1;
         }
 
         // Autofarm
