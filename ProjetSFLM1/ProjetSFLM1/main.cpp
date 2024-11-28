@@ -8,13 +8,20 @@ using namespace std;
 using namespace std::chrono;
 
 int totalScore = 0;
-int goldCount = 1000000;
+int points = 0;
+
+int totalGold = 0;
+int golds = 0;
+
+
 int clickPower = 1;
 int autoclickers = 0;
 
 int timer = time(0);
 
-vector<milliseconds> buyTimings = {};
+int tickTimer = 0;
+
+vector<int> buyTimings = {};
 
 bool isMouseOnButton(sf::Vector2i mousePosition, sf::Vector2f buttonPosition, int buttonSizeX, int buttonSizeY)
 {
@@ -33,16 +40,6 @@ const int WINDOW_WIDTH = 768;
 const int WINDOW_HEIGHT = 720;
 
 int main() {
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -151,12 +148,12 @@ int main() {
                     //Main Clicker Button Tech
                     if (isMouseOnButton(sf::Mouse::getPosition(window), ClickerButtonPosition, ClickerButtonSizeX, ClickerButtonSizeY))
                     {
-                        totalScore += clickPower;
+                        points += clickPower;
                         for (int i = 0; i < clickPower; i++)
                         {
                             if (rand() % 10 == 0) // une chance sur 10 d'avoir un gold
                             {
-                                goldCount += 1;
+                                golds += 1;
                             }
                         }
                         
@@ -166,9 +163,9 @@ int main() {
                     // Shop Button 1 Tech
                     if (isMouseOnButton(sf::Mouse::getPosition(window), ShopButtons[0].getPosition(), ShopButtonSize, ShopButtonSize))
                     {
-                        if (goldCount > 4)
+                        if (golds > 4)
                         {
-                            goldCount += -5;
+                            golds += -5;
                             clickPower += 1;
 
                         }
@@ -178,9 +175,9 @@ int main() {
                     // Shop Button 2 Tech
                     if (isMouseOnButton(sf::Mouse::getPosition(window), ShopButtons[1].getPosition(), ShopButtonSize, ShopButtonSize))
                     {
-                        if (goldCount > 49)
+                        if (golds > 49)
                         {
-                            goldCount += -50;
+                            golds += -50;
                             clickPower += 10;
 
                         }
@@ -190,14 +187,12 @@ int main() {
                     // Shop Button 3 Tech
                     if (isMouseOnButton(sf::Mouse::getPosition(window), ShopButtons[2].getPosition(), ShopButtonSize, ShopButtonSize))
                     {
-                        if (goldCount > 14)
+                        if (golds > 14)
                         {
-                            goldCount += -15;
+                            golds += -15;
                             autoclickers += 1;
 
-                            milliseconds ms = duration_cast<milliseconds>(system_clock::now().time_since_epoch());
-
-                            buyTimings.push_back(ms);
+                            buyTimings.push_back(tickTimer%300); // 300 en sachant qu'il y a 60 ticks par seconde, 5 secondes
                         }
 
                         cout << "ShopButton1Clicked";
@@ -205,46 +200,58 @@ int main() {
                     // Shop Button 4 Tech
                     if (isMouseOnButton(sf::Mouse::getPosition(window), ShopButtons[3].getPosition(), ShopButtonSize, ShopButtonSize))
                     {
-                        if (goldCount > 149)
+                        if (golds > 149)
                         {
-                            goldCount += -150;
+                            golds += -150;
                             autoclickers += 10;
                             for (int i = 0; i < 10; i++)
                             {
                                 milliseconds ms = duration_cast<milliseconds>(system_clock::now().time_since_epoch());
-                                buyTimings.push_back(ms + milliseconds(1000));
-                                
-                                
+                                buyTimings.push_back((tickTimer + i*3) % 300);
                             }
                             
                         }
 
                         cout << "ShopButton1Clicked";
                     }
-
                 }
             }
         }
 
-
         // Timer and Autoclick farm
 
-        if (timer != time(0))
-        {
-            timer = time(0);
-            for (milliseconds autoclicker : buyTimings)
-            {
-                cout << autoclicker.count() << ", " << autoclicker.count() - time(0) << endl;
 
-                if ((autoclicker.count()) == time(0) % 5)
+        // Points :
+        if (totalScore != points)
+        {
+            totalScore += 1;
+        }
+        
+        //Golds : 
+        if (totalGold != golds)
+        {
+            totalGold += 1;
+        }
+
+        // Autofarm
+        for (auto autoclick : buyTimings)
+        {
+
+            if (tickTimer % 300 == autoclick)
+            {
+                // Si sur timing d'autoclick
+                points += clickPower;
+
+                for (int i = 0; i < clickPower; i++)
                 {
-                    totalScore += 1;
                     if (rand() % 10 == 0) // une chance sur 10 d'avoir un gold
                     {
-                        goldCount += 1;
+                        golds += 1;
                     }
                 }
             }
+
+
         }
 
 
@@ -255,7 +262,7 @@ int main() {
 
         scoreText.setPosition(WINDOW_WIDTH - scoreText.getLocalBounds().width - scoreTextMargin , 10);
 
-        sf::Text goldText(to_string(goldCount), font, 40);
+        sf::Text goldText(to_string(totalGold), font, 40);
         goldText.setFillColor(sf::Color::White);
 
         goldText.setPosition(WINDOW_WIDTH - goldText.getLocalBounds().width - scoreTextMargin, 20 + 60);
