@@ -1,2 +1,2 @@
 ﻿  main.cpp
-  ProjetSFLM1.vcxproj -> C:\Users\tdoublet\Documents\GitHub\2D-Platformer-SFML\ProjetSFLM1\x64\Debug\ProjetSFLM1.exe
+C:\Users\Abyssin\Desktop\SFML-Clicker\ProjetSFLM1\ProjetSFLM1\main.cpp(1,10): fatal  error C1083: Impossible d'ouvrir le fichier include : 'SFML/Graphics.hpp' : No such file or directory

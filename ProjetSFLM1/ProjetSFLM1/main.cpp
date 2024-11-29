@@ -12,7 +12,7 @@ int totalScore = 0;
 int points = 0;
 
 int totalGold = 0;
-int golds = 7050;
+int golds = 700;
 
 
 int clickPower = 1;
@@ -41,6 +41,11 @@ bool isMouseOnButton(sf::Vector2i mousePosition, sf::Vector2f buttonPosition, in
     }
 
     return false;
+}
+
+void animTitle()
+{
+
 }
 
 const int WINDOW_WIDTH = 768;
@@ -102,7 +107,7 @@ int main() {
     sf::Sound music;
     music.setBuffer(buffer);
     music.setLoop(true);
-    music.setVolume(75.f);
+    music.setVolume(0.f);
     music.play();
 
 
@@ -112,6 +117,10 @@ int main() {
     sf::Text mainTitleText("SFML Clicker", font, 110);
     mainTitleText.setFillColor(sf::Color::White);
     mainTitleText.setPosition(sf::Vector2f((WINDOW_WIDTH - mainTitleText.getLocalBounds().width) / 2, (WINDOW_HEIGHT - mainTitleText.getLocalBounds().height) / 6));
+
+    int launchAnim = 200;
+    bool launchAnimTime = true;
+    bool titleAnimSide = false;
 
     //Play Button
     int buttonWidth = WINDOW_WIDTH * 0.6;
@@ -142,7 +151,7 @@ int main() {
     
     //VolumeBar
     sf::RectangleShape track(sf::Vector2f(400, 5));
-    track.setPosition(sf::Vector2f((WINDOW_WIDTH - track.getLocalBounds().width)/2, 300));
+    track.setPosition(sf::Vector2f((WINDOW_WIDTH - track.getLocalBounds().width)/2, WINDOW_HEIGHT/3*2));
     track.setFillColor(sf::Color(60, 60, 60));
 
     int sliderMin = 0;
@@ -164,15 +173,12 @@ int main() {
     int volumeIconWidth = 80;
     int volumeIconHeight = 80;
     sf::RectangleShape volumeIcon(sf::Vector2f(volumeIconWidth, volumeIconHeight));
-    volumeIcon.setFillColor(sf::Color::Black);
-    volumeIcon.setPosition(sf::Vector2f(300, 300));
+    volumeIcon.setPosition(sf::Vector2f(track.getPosition().x - volumeIcon.getLocalBounds().width - 10, track.getPosition().y - (volumeIcon.getLocalBounds().height/2)));
 
     sf::Texture volumeIconImage;
     volumeIconImage.loadFromFile("../Assets/volumeIcon.png");
 
     volumeIcon.setTexture(&volumeIconImage);
-    
-
 
 
     // GAME
@@ -220,6 +226,8 @@ int main() {
     maxGoldUpgradeBackground.setFillColor(sf::Color::Red);
     maxGoldUpgrade.setPosition(sf::Vector2f((WINDOW_WIDTH - maxGoldUpgrade.getLocalBounds().width) / 2, (WINDOW_HEIGHT - maxGoldUpgrade.getLocalBounds().height) / 2));
     maxGoldUpgradeBackground.setPosition(sf::Vector2f((WINDOW_WIDTH - maxGoldUpgrade.getLocalBounds().width) / 2, (WINDOW_HEIGHT - maxGoldUpgrade.getLocalBounds().height) / 2));
+
+    
 
 
     
@@ -367,28 +375,44 @@ int main() {
             }
         }
 
+        // Anim Title
+        if (launchAnim == -10)
+        {
+            launchAnimTime = false;
+        }
+        if (abs(launchAnim) > 10 && !launchAnimTime)
+        {
+            titleAnimSide = !titleAnimSide;
+        }
+        if (tickTimer % 3 == 0 | launchAnimTime) {
+            if (titleAnimSide)
+            {
+                launchAnim += 1;
+            }
+            else
+            {
+                launchAnim += -1;
+            }
+        }
+        mainTitleText.setPosition(sf::Vector2f((WINDOW_WIDTH - mainTitleText.getLocalBounds().width) / 2, ((WINDOW_HEIGHT - mainTitleText.getLocalBounds().height) / 6) - launchAnim));
+
+
         // Timer and Autoclick farm
 
         cout << totalScore << ", " << points << endl;
         // Points :
         if (totalScore != points)
         {
-            totalScore += 1;
+            totalScore += 1 + 0.1 * (points - totalScore);
         }
-        if (totalScore < points-600)
-        {
-            totalScore += 10;
-        }
+        
         
         //Golds : 
         if (totalGold < golds)
         {
-            totalGold += 1;
+            totalGold += 1 + 0.1*(golds-totalGold);
         }
-        if (totalGold < golds-600)
-        {
-            totalGold += 10;
-        }
+        
         if (totalGold > golds)
         {
             totalGold -= 1;
@@ -412,9 +436,14 @@ int main() {
                     }
                 }
             }
-
-
         }
+        //Stats text
+        string tempText = to_string(float(autoclickers) / 5);
+        string statsTextString1 = "Click Power : " + to_string(clickPower) + "\n" + "AutoClick/s : " + tempText[0] + "." + tempText[2];
+
+        sf::Text statsText1(statsTextString1, font, 50);
+        statsText1.setPosition(300, 300);
+        statsText1.setFillColor(sf::Color::White);
 
 
 
@@ -477,6 +506,8 @@ int main() {
             window.draw(scoreText);
             window.draw(goldText);
 
+            window.draw(statsText1);
+
             // Max Gold Upgrade
             if (tickSinceMaxGoldUpgrade < 60)
             {
@@ -500,3 +531,6 @@ int main() {
 
     return 0;
 }
+
+// TODO : Stats si plus de 9.9 autoclick par seconde, gold max stat
+// Sound effect ?
