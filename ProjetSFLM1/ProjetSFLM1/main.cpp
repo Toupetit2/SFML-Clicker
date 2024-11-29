@@ -1,5 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
+#include <iomanip>
+#include <sstream>
 #include <iostream>
 #include <vector>
 #include <windows.h>
@@ -12,7 +14,7 @@ int totalScore = 0;
 int points = 0;
 
 int totalGold = 0;
-int golds = 700;
+int golds = 7000;
 
 
 int clickPower = 1;
@@ -43,15 +45,12 @@ bool isMouseOnButton(sf::Vector2i mousePosition, sf::Vector2f buttonPosition, in
     return false;
 }
 
-void animTitle()
-{
-
-}
-
 const int WINDOW_WIDTH = 768;
 const int WINDOW_HEIGHT = 720;
 
 int main() {
+
+    #pragma region init
 
     srand(time(0));
     sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "SFML Clicker");
@@ -61,7 +60,10 @@ int main() {
     sf::Font font;
     font.loadFromFile("../Assets/Roboto.ttf");
 
-    //Images Setup
+    #pragma endregion init
+
+    #pragma region imagesSetup
+
     sf::Texture button1;
     sf::Texture button2;
     sf::Texture button3;
@@ -93,26 +95,31 @@ int main() {
     {
         cout << "impossible de charger l'image 6";
     }
-
-    vector<sf::Texture> buttonTextureList = { button1, button2, button3, button4, button5, button6 };
-
-    sf::Sprite button1Sprite;
-    button1Sprite.setTexture(button1);
+    #pragma endregion imagesSetup
     
+    #pragma region sound
     //SOUND
     sf::SoundBuffer buffer;
-    if (!buffer.loadFromFile("../ChillMenu_Loopable.wav")) {
+    if (!buffer.loadFromFile("../Assets/ChillMenu_Loopable.wav")) {
         return -1;
     }
     sf::Sound music;
     music.setBuffer(buffer);
     music.setLoop(true);
-    music.setVolume(0.f);
+    music.setVolume(75.f);
     music.play();
 
+    sf::SoundBuffer clicSound;
+    if (!clicSound.loadFromFile("../Assets/click.wav")) {
+        return -1;
+    }
+    sf::Sound clicSoundPlayer;
+    clicSoundPlayer.setBuffer(clicSound);
+    clicSoundPlayer.setVolume(75.f);
 
-    // MENU
+    #pragma endregion sound
 
+    #pragma region menu
     //Title Header Text
     sf::Text mainTitleText("SFML Clicker", font, 110);
     mainTitleText.setFillColor(sf::Color::White);
@@ -145,8 +152,10 @@ int main() {
     settingsIcon.loadFromFile("../settingsIcon.png");
 
     settingsButton.setTexture(&settingsIcon);
-
     
+    #pragma endregion menu
+    
+    #pragma region settings
     // SETTINGS
     
     //VolumeBar
@@ -180,7 +189,9 @@ int main() {
 
     volumeIcon.setTexture(&volumeIconImage);
 
+    #pragma endregion settings
 
+    #pragma region game
     // GAME
 
     //Title Text
@@ -205,6 +216,12 @@ int main() {
 
 
     // Shop Buttons
+
+    vector<sf::Texture> buttonTextureList = { button1, button2, button3, button4, button5, button6 };
+
+    sf::Sprite button1Sprite;
+    button1Sprite.setTexture(button1);
+
     int ShopButtonMargin = 10;
     int ShopButtonSize = (WINDOW_WIDTH - 30) / 6 - ShopButtonMargin;
     
@@ -227,10 +244,11 @@ int main() {
     maxGoldUpgrade.setPosition(sf::Vector2f((WINDOW_WIDTH - maxGoldUpgrade.getLocalBounds().width) / 2, (WINDOW_HEIGHT - maxGoldUpgrade.getLocalBounds().height) / 2));
     maxGoldUpgradeBackground.setPosition(sf::Vector2f((WINDOW_WIDTH - maxGoldUpgrade.getLocalBounds().width) / 2, (WINDOW_HEIGHT - maxGoldUpgrade.getLocalBounds().height) / 2));
 
-    
+    //Gold boost shop
+    int goldBoostLvl = 1;
 
+    #pragma endregion game
 
-    
     while (window.isOpen()) {
         tickTimer += 1;
         sf::Event event;
@@ -247,6 +265,10 @@ int main() {
             {
                 if (event.mouseButton.button == sf::Mouse::Left)
                 {
+                    #pragma region left_click_actions
+                    
+                    clicSoundPlayer.play();
+
                     if(MainMenuScreen | SettingsMenuScreen)
                     {
                         // Settings Button
@@ -352,9 +374,11 @@ int main() {
                         {
                             if (goldDropRate != 1)
                             {
-                                if (golds > 29)
+                                if (golds > (30 * goldBoostLvl * goldBoostLvl)-1)
                                 {
-                                    golds += -30;
+
+                                    golds += -(30 * goldBoostLvl * goldBoostLvl);
+                                    goldBoostLvl += 1;
                                     goldDropRate += -1;
                                 }
                             }
@@ -362,11 +386,13 @@ int main() {
                             {
                                 tickSinceMaxGoldUpgrade = 0;
                             }
-                            cout << "ShopButton4Clicked";
+                            cout << "ShopButton5Clicked";
                         }
                     }
                 }
+                #pragma endregion left_click_actions
             }
+
 
             if (event.type == sf::Event::MouseButtonReleased) {
                 if (event.mouseButton.button == sf::Mouse::Left) {
@@ -374,7 +400,7 @@ int main() {
                 }
             }
         }
-
+        #pragma region animationTitle
         // Anim Title
         if (launchAnim == -10)
         {
@@ -396,10 +422,10 @@ int main() {
         }
         mainTitleText.setPosition(sf::Vector2f((WINDOW_WIDTH - mainTitleText.getLocalBounds().width) / 2, ((WINDOW_HEIGHT - mainTitleText.getLocalBounds().height) / 6) - launchAnim));
 
+        #pragma endregion animationTitle
 
-        // Timer and Autoclick farm
+        #pragma region scoreAndGoldsAnim
 
-        cout << totalScore << ", " << points << endl;
         // Points :
         if (totalScore != points)
         {
@@ -415,9 +441,11 @@ int main() {
         
         if (totalGold > golds)
         {
-            totalGold -= 1;
+            totalGold -= 1 + 0.05 * (totalGold-golds);
         }
+        #pragma endregion scoreAndGoldsAnim
 
+        #pragma region autofarm
         // Autofarm
         for (auto autoclick : buyTimings)
         {
@@ -430,23 +458,41 @@ int main() {
                 for (int i = 0; i < clickPower; i++)
                 {
                     totalScore += 1;
-                    if (rand() % goldDropRate == 0) // une chance sur 10 d'avoir un gold
+                    if (rand() % goldDropRate == 0)
                     {
                         golds += 1;
                     }
                 }
             }
         }
-        //Stats text
-        string tempText = to_string(float(autoclickers) / 5);
-        string statsTextString1 = "Click Power : " + to_string(clickPower) + "\n" + "AutoClick/s : " + tempText[0] + "." + tempText[2];
 
-        sf::Text statsText1(statsTextString1, font, 50);
-        statsText1.setPosition(300, 300);
+        #pragma endregion autofarm
+
+        #pragma region shopPriceText
+
+        sf::Text shopPriceText(" 5             50             15            150            " + to_string(goldBoostLvl*30*goldBoostLvl), font, 30);
+        shopPriceText.setPosition(60, 260);
+        shopPriceText.setFillColor(sf::Color::White);
+
+        #pragma endregion shopPriceText
+
+        #pragma region statsText
+        //Stats text
+        ostringstream temp;
+        ostringstream temp2;
+        temp << fixed << setprecision(1) << (float(autoclickers) / 5);
+        temp2 << fixed << setprecision(2) << (1 / float(goldDropRate));
+
+        string statsTextString1 = "Click Power : " + to_string(clickPower) + "\n" + "AutoClick/s : " + temp.str() + "\n" + "Gold/point : " + temp2.str();
+
+        sf::Text statsText1(statsTextString1, font, 30);
+        statsText1.setPosition(50, 350);
         statsText1.setFillColor(sf::Color::White);
 
+        #pragma endregion statsText
 
-
+        #pragma region scoreText
+        
         //Score text
         int scoreTextMargin = 30;
         sf::Text scoreText(to_string(totalScore), font, 60);
@@ -458,8 +504,11 @@ int main() {
         goldText.setFillColor(sf::Color::White);
 
         goldText.setPosition(WINDOW_WIDTH - goldText.getLocalBounds().width - scoreTextMargin, 20 + 60);
-
-        // Sound Slider
+        
+        #pragma endregion scoreText
+        
+        #pragma region soundGlider
+        
         if (isDragging) {
             sf::Vector2i mousePos = sf::Mouse::getPosition(window);
             float newKnobX = static_cast<float>(mousePos.x);
@@ -480,9 +529,9 @@ int main() {
 
             music.setVolume(sliderValue);
         }
+        #pragma endregion soundGlider
 
-
-
+        #pragma region windowDraw
         window.clear();
         
         if (MainMenuScreen)
@@ -496,6 +545,7 @@ int main() {
         if (MainGameScreen) {
             window.draw(BackgroundHeader);
             window.draw(ClickerButton);
+            window.draw(shopPriceText);
 
             for (auto button : ShopButtons)
             {
@@ -528,9 +578,9 @@ int main() {
 
         window.display();
     }
+    #pragma endregion windowDraw
 
     return 0;
 }
 
-// TODO : Stats si plus de 9.9 autoclick par seconde, gold max stat
 // Sound effect ?
