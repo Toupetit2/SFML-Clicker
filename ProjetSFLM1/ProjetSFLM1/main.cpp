@@ -14,7 +14,7 @@ int totalScore = 0;
 int points = 0;
 
 int totalGold = 0;
-int golds = 7000;
+int golds = 0;
 
 
 int clickPower = 1;
@@ -276,7 +276,6 @@ int main() {
                         {
                             MainMenuScreen = !MainMenuScreen;
                             SettingsMenuScreen = !SettingsMenuScreen;
-                            cout << "SettingsButtonCLicked \n";
                         }
                     }
 
@@ -288,7 +287,6 @@ int main() {
                         {
                             MainMenuScreen = false;
                             MainGameScreen = true;
-                            cout << "PlayButtonCLicked \n";
                         }
                     }
 
@@ -313,7 +311,6 @@ int main() {
                                     golds += 1;
                                 }
                             }
-                            cout << "ClickerButtonCLicked  ";
                         }
 
                         // Shop Button 1 Tech
@@ -326,7 +323,6 @@ int main() {
 
                             }
 
-                            cout << "ShopButton1Clicked";
                         }
                         // Shop Button 2 Tech
                         if (isMouseOnButton(sf::Mouse::getPosition(window), ShopButtons[1].getPosition(), ShopButtonSize, ShopButtonSize))
@@ -339,7 +335,6 @@ int main() {
 
                             }
 
-                            cout << "ShopButton2Clicked";
                         }
                         // Shop Button 3 Tech
                         if (isMouseOnButton(sf::Mouse::getPosition(window), ShopButtons[2].getPosition(), ShopButtonSize, ShopButtonSize))
@@ -352,7 +347,6 @@ int main() {
                             buyTimings.push_back(tickTimer%300); // 300 en sachant qu'il y a 60 ticks par seconde, 5 secondes
                         }
 
-                            cout << "ShopButton3Clicked";
                         }
                         // Shop Button 4 Tech
                         if (isMouseOnButton(sf::Mouse::getPosition(window), ShopButtons[3].getPosition(), ShopButtonSize, ShopButtonSize))
@@ -366,7 +360,6 @@ int main() {
                                 buyTimings.push_back((tickTimer + i*3) % 300);
                             }
                             }
-                            cout << "ShopButton4Clicked";
                         }
 
                         // Shop Button 5 Tech
@@ -386,7 +379,6 @@ int main() {
                             {
                                 tickSinceMaxGoldUpgrade = 0;
                             }
-                            cout << "ShopButton5Clicked";
                         }
                     }
                 }
